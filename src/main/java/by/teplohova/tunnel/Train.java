@@ -5,48 +5,52 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Train implements Runnable {
     private int trainId;
-    private ReentrantLock lock;
+    private String direction;
 
-    public Train(int trainId) {
+    public Train(int trainId,String direction) {
         this.trainId = trainId;
-        lock=new ReentrantLock();
-
-        new Thread(this,String.valueOf(this.trainId));
+    this.direction=direction;
+        new Thread(this, String.valueOf(this.trainId));
     }
 
     @Override
     public void run() {
-comeInTunnel();
-goThrough();
-goOut();
+        //comeInTunnel();
+        goThrough();
+        goOut();
     }
 
-    private void comeInTunnel(){
-    System.out.println("Train "+this.trainId+ " come in ");
-    }
-    private void goThrough(){
-        Tunnel.RailRoad railRoad=null;
-       try{
-         //  lock.lock();
-           railRoad=Tunnel.getTunnel().getRailRoad();
-          // railRoad.getLockRoad().lock();
-           System.out.println("Train "+this.trainId+ " go through " +railRoad.getName());
-           try {
-               TimeUnit.MILLISECONDS.sleep(10);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-       } finally {
-           Tunnel.getTunnel().realiseRailRoad(railRoad);
-           //railRoad.getLockRoad().unlock();
-          // lock.unlock();
-       }
-
+    private void comeInTunnel() {
+        System.out.println("Train " + this.trainId + " come in ");
     }
 
-    private void goOut(){
+    private void goThrough() {
+        Tunnel.RailRoad railRoad = null;
+        try {
+            Tunnel tunnel=Tunnel.getTunnel();
 
-        System.out.println("Train "+this.trainId+ " go out");
+            railRoad = Tunnel.getTunnel().getRailRoad(direction);
+
+            System.out.println("Train " + this.trainId + " go through " + railRoad.getName()+ railRoad.getDirection());
+            try {
+                TimeUnit.MILLISECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } finally {
+
+            if (railRoad != null) {
+                Tunnel.getTunnel().realiseRailRoad(railRoad);
+            }
+
+
+        }
+
+    }
+
+    private void goOut() {
+
+    //    System.out.println("Train " + this.trainId + " go out");
     }
 
 }
