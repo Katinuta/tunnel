@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tunnel-config>
+    <count-train>5</count-train>
+    <rail-road >
+        <name>first</name>
+        <name>second</name>
+        <time>10</time>
+        <count-train-direction>2</count-train-direction>
+    </rail-road>
+
+</tunnel-config>

@@ -1,21 +1,20 @@
 package by.teplohova.tunnel;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Train implements Runnable {
     private int trainId;
     private String direction;
 
-    public Train(int trainId,String direction) {
+    public Train(int trainId, String direction) {
         this.trainId = trainId;
-    this.direction=direction;
+        this.direction = direction;
         new Thread(this, String.valueOf(this.trainId));
     }
 
     @Override
     public void run() {
-        //comeInTunnel();
+        comeInTunnel();
         goThrough();
         goOut();
     }
@@ -27,13 +26,12 @@ public class Train implements Runnable {
     private void goThrough() {
         Tunnel.RailRoad railRoad = null;
         try {
-            Tunnel tunnel=Tunnel.getTunnel();
 
             railRoad = Tunnel.getTunnel().getRailRoad(direction);
 
-            System.out.println("Train " + this.trainId + " go through " + railRoad.getName()+ railRoad.getDirection());
+            System.out.println("Train " + this.trainId + " go through " + railRoad.getName() + railRoad.getDirection());
             try {
-                TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.MILLISECONDS.sleep(railRoad.getTimeGo());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -50,7 +48,7 @@ public class Train implements Runnable {
 
     private void goOut() {
 
-    //    System.out.println("Train " + this.trainId + " go out");
+            System.out.println("Train " + this.trainId + " go out");
     }
 
 }
