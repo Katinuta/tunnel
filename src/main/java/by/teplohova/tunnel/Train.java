@@ -1,8 +1,15 @@
 package by.teplohova.tunnel;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.concurrent.TimeUnit;
 
+
 public class Train implements Runnable {
+    public static final Logger LOGGER= LogManager.getLogger();
+
     private int trainId;
     private String direction;
 
@@ -14,41 +21,41 @@ public class Train implements Runnable {
 
     @Override
     public void run() {
-        comeInTunnel();
-        goThrough();
-        goOut();
+        Tunnel.RailRoad railRoad = Tunnel.getTunnel().getRailRoad(direction);
+        comeInTunnel(railRoad);
+        goThrough(railRoad);
+        goOut(railRoad);
     }
 
-    private void comeInTunnel() {
-        System.out.println("Train " + this.trainId + " come in ");
+    private void comeInTunnel(Tunnel.RailRoad railRoad) {
+        System.out.println("Train " + this.trainId + " come in "+ railRoad.getName());
+
     }
 
-    private void goThrough() {
-        Tunnel.RailRoad railRoad = null;
+    private void goThrough(Tunnel.RailRoad railRoad) {
+
+        System.out.println("Train " + this.trainId + " go through " + railRoad.getName() + railRoad.getDirection());
         try {
-
-            railRoad = Tunnel.getTunnel().getRailRoad(direction);
-
-            System.out.println("Train " + this.trainId + " go through " + railRoad.getName() + railRoad.getDirection());
-            try {
-                TimeUnit.MILLISECONDS.sleep(railRoad.getTimeGo());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } finally {
-
-            if (railRoad != null) {
-                Tunnel.getTunnel().realiseRailRoad(railRoad);
-            }
-
-
+            TimeUnit.MILLISECONDS.sleep(railRoad.getTimeGo());
+        } catch (InterruptedException e) {
+           LOGGER.log(Level.ERROR,"");
         }
 
     }
 
-    private void goOut() {
+    private void goOut(Tunnel.RailRoad railRoad) {
 
-            System.out.println("Train " + this.trainId + " go out");
+        System.out.println("Train " + this.trainId + " go out");
+        if (railRoad != null) {
+            Tunnel.getTunnel().realiseRailRoad(railRoad);
+        }
     }
 
+    @Override
+    public String toString() {
+        return "Train{" +
+                "trainId=" + trainId +
+                ", direction='" + direction + '\'' +
+                '}';
+    }
 }

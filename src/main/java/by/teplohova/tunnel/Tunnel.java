@@ -27,7 +27,7 @@ public class Tunnel {
         if (!isExistTunnel.get()) {
             lock.lock();
             try {
-                if (!isExistTunnel.get()) {
+                if (tunnel==null) {
                     tunnel = new Tunnel();
                     isExistTunnel.set(true);
                 }
@@ -43,14 +43,12 @@ public class Tunnel {
         try {
 
             semaphore.acquire(1);
-            // System.out.println(Thread.currentThread().getName()+"get permission");
             while (railRoad == null) {
 
                 if (first.getDirection() == null) {
                     if (first.getSemaphoreRoad().tryAcquire(1)) {
                         railRoad = first;
                         first.setDirection(direction);
-                        System.out.println(direction + " ");
                     }
                 } else {
                     if (direction.equals(first.direction)) {
@@ -77,7 +75,6 @@ public class Tunnel {
                 }
             }
 
-
         } catch (InterruptedException e) {
             e.printStackTrace();
 
@@ -88,7 +85,6 @@ public class Tunnel {
     public void realiseRailRoad(RailRoad road) {
 
         road.getSemaphoreRoad().release(1);
-        //System.out.println(Thread.currentThread().getName()+"give ");
         road.direction = null;
         semaphore.release(1);
 
