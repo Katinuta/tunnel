@@ -1,10 +1,9 @@
 package by.teplohova.tunnel.creator;
 
-import by.teplohova.tunnel.DirectionEnum;
-import by.teplohova.tunnel.Train;
+import by.teplohova.tunnel.entity.DirectionEnum;
+import by.teplohova.tunnel.entity.Train;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class TrainCreator {

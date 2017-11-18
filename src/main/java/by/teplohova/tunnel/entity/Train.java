@@ -1,4 +1,4 @@
-package by.teplohova.tunnel;
+package by.teplohova.tunnel.entity;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,4 @@
-package by.teplohova.tunnel;
+package by.teplohova.tunnel.entity;
 
 public enum DirectionEnum {
 

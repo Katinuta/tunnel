@@ -1,15 +1,11 @@
-import by.teplohova.tunnel.Train;
-import by.teplohova.tunnel.TunnelConfig;
 import by.teplohova.tunnel.creator.TrainCreator;
-import by.teplohova.tunnel.parser.TunnelConfigSAXBuilder;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-//        ExecutorService executor = Executors.newFixedThreadPool(6);
+        ExecutorService executor = Executors.newFixedThreadPool(6);
 //        executor.execute(new Train(1, "tuda"));
 //        executor.execute(new Train(2, "ob"));
 //        executor.execute(new Train(3, "ob"));
@@ -21,7 +17,7 @@ public class Main {
 //        executor.execute(new Train(9, "ob"));
 //        executor.shutdown();
         //System.out.println(new TunnelConfigSAXBuilder().buildTunnelConfig("data/configtunnel.xml"));
-        System.out.println( TrainCreator.createTrains(10));
-
+         TrainCreator.createTrains(15).forEach(train -> executor.execute(train));
+        executor.shutdown();
     }
 }
