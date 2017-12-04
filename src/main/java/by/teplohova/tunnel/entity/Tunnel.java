@@ -10,13 +10,13 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Tunnel {
 
+    private static Tunnel tunnel;
+    private static ReentrantLock lock = new ReentrantLock();
+    private static AtomicBoolean isExistTunnel = new AtomicBoolean(false);
     private ArrayList<RailRoad> listRoads;
     private RailRoad first;
     private RailRoad second;
-    private static Tunnel tunnel;
     private Semaphore semaphore;
-    private static ReentrantLock lock = new ReentrantLock();
-    private static AtomicBoolean isExistTunnel = new AtomicBoolean(false);
 
     private Tunnel() {
         TunnelConfig config = new TunnelConfigSAXBuilder().buildTunnelConfig("data/configtunnel.xml");

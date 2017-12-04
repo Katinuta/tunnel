@@ -45,7 +45,7 @@ public class Train implements Runnable {
 
     private void goOut(Tunnel.RailRoad railRoad) {
 
-        System.out.println("Train " + this.trainId + " go out");
+        System.out.println("Train " + this.trainId + " go out " + railRoad.getName());
         if (railRoad != null) {
             Tunnel.getTunnel().realiseRailRoad(railRoad);
         }
