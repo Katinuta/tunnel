@@ -1,6 +1,9 @@
 package by.teplohova.tunnel.entity;
 
 import by.teplohova.tunnel.parser.TunnelConfigSAXBuilder;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
@@ -9,12 +12,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Tunnel {
 
+    private final static Logger LOGGER = LogManager.getLogger();
     private static Tunnel tunnel;
     private static ReentrantLock lock = new ReentrantLock();
     private static AtomicBoolean isExistTunnel = new AtomicBoolean(false);
     private ArrayList<RailRoad> listRoads;
-    private RailRoad first;
-    private RailRoad second;
     private Semaphore semaphore;
 
     private Tunnel() {
@@ -45,7 +47,6 @@ public class Tunnel {
     public RailRoad getRailRoad(String direction) {
         RailRoad railRoad = null;
         try {
-
             semaphore.acquire(1);
             while (railRoad == null) {
                 for (RailRoad road : listRoads) {
@@ -54,7 +55,6 @@ public class Tunnel {
                         if (road.getSemaphoreRoad().tryAcquire(1)) {
                             railRoad = road;
                             road.setDirection(direction);
-
                         }
                     } else {
                         if (direction.equals(road.getDirection())) {
@@ -65,10 +65,8 @@ public class Tunnel {
                     }
                 }
             }
-
         } catch (InterruptedException e) {
-            e.printStackTrace();
-
+           LOGGER.log(Level.ERROR,"Thread "+ Thread.currentThread()+" is interrupted" );
         }
         return railRoad;
     }

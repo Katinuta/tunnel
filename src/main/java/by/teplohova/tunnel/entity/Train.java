@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Train implements Runnable {
-    public static final Logger LOGGER= LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private int trainId;
     private String direction;
@@ -21,30 +21,28 @@ public class Train implements Runnable {
 
     @Override
     public void run() {
-        Tunnel.RailRoad railRoad = Tunnel.getTunnel().getRailRoad(direction);
+        RailRoad railRoad = Tunnel.getTunnel().getRailRoad(direction);
         comeInTunnel(railRoad);
         goThrough(railRoad);
         goOut(railRoad);
     }
 
-    private void comeInTunnel(Tunnel.RailRoad railRoad) {
-        System.out.println("Train " + this.trainId + " come in "+ railRoad.getName());
+    private void comeInTunnel(RailRoad railRoad) {
+        System.out.println("Train " + this.trainId + " come in " + railRoad.getName());
 
     }
 
-    private void goThrough(Tunnel.RailRoad railRoad) {
-
+    private void goThrough(RailRoad railRoad) {
         System.out.println("Train " + this.trainId + " go through " + railRoad.getName() + railRoad.getDirection());
         try {
             TimeUnit.MILLISECONDS.sleep(railRoad.getTimeGo());
         } catch (InterruptedException e) {
-           LOGGER.log(Level.ERROR,"");
+            LOGGER.log(Level.ERROR, "Thread " + Thread.currentThread() + " is interrupted");
         }
 
     }
 
-    private void goOut(Tunnel.RailRoad railRoad) {
-
+    private void goOut(RailRoad railRoad) {
         System.out.println("Train " + this.trainId + " go out " + railRoad.getName());
         if (railRoad != null) {
             Tunnel.getTunnel().realiseRailRoad(railRoad);
