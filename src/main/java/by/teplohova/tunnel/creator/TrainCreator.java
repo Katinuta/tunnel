@@ -1,6 +1,5 @@
 package by.teplohova.tunnel.creator;
 
-import by.teplohova.tunnel.entity.DirectionEnum;
 import by.teplohova.tunnel.entity.Train;
 
 import java.util.ArrayList;
