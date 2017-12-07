@@ -1,6 +1,6 @@
 package by.teplohova.tunnel.parser;
 
-import by.teplohova.tunnel.TunnelConfig;
+import by.teplohova.tunnel.entity.TunnelConfig;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

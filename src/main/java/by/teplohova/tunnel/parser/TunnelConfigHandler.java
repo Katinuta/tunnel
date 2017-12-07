@@ -1,6 +1,6 @@
 package by.teplohova.tunnel.parser;
 
-import by.teplohova.tunnel.TunnelConfig;
+import by.teplohova.tunnel.entity.TunnelConfig;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 

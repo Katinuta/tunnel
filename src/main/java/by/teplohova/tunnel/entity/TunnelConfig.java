@@ -1,4 +1,4 @@
-package by.teplohova.tunnel;
+package by.teplohova.tunnel.entity;
 
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class TunnelConfig {
     private int countTrainInDirection;
 
     public TunnelConfig() {
-        railRoadNames=new ArrayList<>();
+        railRoadNames = new ArrayList<>();
     }
 
 
@@ -27,7 +27,7 @@ public class TunnelConfig {
     }
 
     public void setRailRoadName(String railRoadNames) {
-         this.railRoadNames.add(railRoadNames);
+        this.railRoadNames.add(railRoadNames);
     }
 
     public int getTimeGoInRailRoad() {
@@ -51,7 +51,7 @@ public class TunnelConfig {
     public String toString() {
         return "TunnelConfig{" +
                 "countTrain=" + countTrain +
-                ", railRoadName='" + railRoadNames+ '\'' +
+                ", railRoadName='" + railRoadNames + '\'' +
                 ", timeGoInRailRoad=" + timeGoInRailRoad +
                 ", countTrainInDirection=" + countTrainInDirection +
                 '}';
